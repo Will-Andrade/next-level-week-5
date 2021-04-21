@@ -1,6 +1,6 @@
-import '../styles.css/global.scss'
+import '../styles.css/global.scss';
 
-import Header from '../components/Header'
+import Header from '../components/Header';
 import Player from '../components/Player';
 
 import styles from '../styles.css/app.module.scss';
