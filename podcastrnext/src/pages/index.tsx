@@ -42,7 +42,7 @@ export default function Home({ latestEpisodes, allEpisodes }: HomeProps) {
                   objectFit="cover"
                 />
 
-                <div className={styles.episodesDetails}>
+                <div className={styles.episodeDetails}>
                   <a href="">{episode.title}</a>
                   <p>{episode.members}</p>
                   <span>{episode.publishedAt}</span>
