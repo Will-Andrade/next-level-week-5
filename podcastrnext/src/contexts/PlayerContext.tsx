@@ -12,12 +12,14 @@ type PlayerContextData = {
     episodeList: Episode[];
     currentEpisodeIndex: number;
     isPlaying: boolean;
+    isLooping: boolean;
     play: (episode: Episode) => void;
     playList: (list: Episode[], index: number) => void;
     playNext: () => void;
     playPrevious: () => void;
     setPlayingState: (state: boolean) => void;
     togglePlay: () => void;
+    toggleLoop: () => void;
     hasNext: boolean;
     hasPrevious: boolean;
 };
@@ -32,6 +34,7 @@ export function PlayerContextProvider({ children }: PlayerContextProviderProps) 
     const [episodeList, setEpisodeList] = useState([]);
     const [currentEpisodeIndex, setCurrentEpisodeIndex] = useState(0);
     const [isPlaying, setIsPlaying] = useState(false);
+    const [isLooping, setIsLooping] = useState(false);
 
     function play(episode: Episode) {
         setEpisodeList([episode]);
@@ -49,6 +52,10 @@ export function PlayerContextProvider({ children }: PlayerContextProviderProps) 
         setIsPlaying(!isPlaying);
     }
 
+    function toggleLoop() {
+        setIsLooping(!isLooping);
+    }
+
     function setPlayingState(state: boolean) {
         setIsPlaying(state)
     }
@@ -57,10 +64,8 @@ export function PlayerContextProvider({ children }: PlayerContextProviderProps) 
     const hasNext = currentEpisodeIndex + 1 < episodeList.length;
 
     function playNext() {
-        const nextEpisodeIndex = currentEpisodeIndex + 1;
-
         if (hasNext) {
-            setCurrentEpisodeIndex(nextEpisodeIndex);
+            setCurrentEpisodeIndex(currentEpisodeIndex + 1);
         }
     }
 
@@ -79,11 +84,13 @@ export function PlayerContextProvider({ children }: PlayerContextProviderProps) 
             playList, 
             playNext,
             playPrevious,
-            isPlaying, 
+            isPlaying,
+            isLooping, 
             togglePlay, 
             setPlayingState,
             hasNext,
-            hasPrevious
+            hasPrevious,
+            toggleLoop,
         }}>
             {children}
         </PlayerContext.Provider>
